@@ -1,5 +1,5 @@
 # Define some defaults for capistrano deploys.
-# To load this capistrano configuraiton, require 'abletech/deployment/capistrano' from deploy.rb
+# To load this capistrano configuraiton, require 'easy/deployment/capistrano' from deploy.rb
 
 Capistrano::Configuration.instance(:must_exist).load do
 

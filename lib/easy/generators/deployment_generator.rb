@@ -1,7 +1,7 @@
 require 'rails/generators'
 require 'optparse'
 
-module Abletech
+module Easy
   class DeploymentGenerator < Rails::Generators::Base
     source_root File.join(File.dirname(__FILE__), "templates") # Where templates are copied from
 
@@ -14,7 +14,7 @@ module Abletech
     def create_deployment_files
       options = parse_options(ARGV)
 
-      # If there was a deploy.rb initially, let the generator prompt to handle conflicts. Otherwise remove the default capistrano one, so we can override it silently with our template without being prompted      
+      # If there was a deploy.rb initially, let the generator prompt to handle conflicts. Otherwise remove the default capistrano one, so we can override it silently with our template without being prompted
       deploy_file_already_existed = File.exist?(File.join(destination_root, "config", "deploy.rb"))
       capify!
       remove_file("config/deploy.rb") unless deploy_file_already_existed # Removing this means we aren't prompted to overwrite if we only have the default capistrano deploy.rb
@@ -24,15 +24,15 @@ module Abletech
       # Generate all stages specified
       options[:stages] ||= %w(staging production)
       options[:stages].each do |stage|
-        generate("abletech:stage", stage)
+        generate("easy:stage", stage)
       end
 
       info = %{
-Abletech Deployment Config now setup!
+Easy Deployment Config now setup!
 
 TODO:
   * Set the correct git repository in config/deploy.rb
-}     
+}
       options[:stages].each do |stage|
         info += "  * Set the ip address for staging in config/deploy/#{stage}.rb && the apache config in config/deploy/#{stage}/apache/#{application_name}"
       end

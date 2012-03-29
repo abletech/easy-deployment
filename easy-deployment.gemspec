@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "abletech/deployment/version"
+require "easy/deployment/version"
 
 Gem::Specification.new do |s|
-  s.name        = "abletech-deployment"
-  s.version     = Abletech::Deployment::VERSION
+  s.name        = "easy-deployment"
+  s.version     = Easy::Deployment::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Jeremy Olliver", "Nigel Ramsay"]
   s.email       = ["jeremy.olliver@gmail.com", "nigel.ramsay@abletech.co.nz"]
   s.summary     = %q{Gem for encapsulating abletech's deployment practices}
-  s.description = %q{Abletech deployment: includes a generator, and capistrano configuration}
+  s.description = %q{Easy deployment: includes a generator, and capistrano configuration}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

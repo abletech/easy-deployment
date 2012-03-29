@@ -1,4 +1,4 @@
-= Abletech/Deployment
+= Easy/Deployment
 
 This gem is for encapsulating Abletech's common deployment patterns using capistrano.
 
@@ -11,4 +11,4 @@ This gem is for encapsulating Abletech's common deployment patterns using capist
 Then run:
 
   $ bundle install
-  $ rails g abletech:deployment
+  $ rails g easy:deployment
