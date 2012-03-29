@@ -6,7 +6,7 @@ This gem is for encapsulating Abletech's common deployment patterns using capist
 
 # Gemfile
 
-  gem 'abletech-deployment', :git => "git@git.abletech.co.nz:/var/git/abletech/abletech-deployment.git"
+  gem 'easy-deployment', :git => "git@github.com:AbleTech/easy-deployment.git"
 
 Then run:
 
