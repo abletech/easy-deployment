@@ -1,0 +1,10 @@
+<VirtualHost <<%= name %>-ip-address>:80>
+   ServerName <%= name %>.<%= application_name %>.co.nz
+
+   DocumentRoot /var/apps/<%= application_name %>/current/public
+   RailsEnv <%= name %>
+   <Directory /var/apps/<%= application_name %>/current/public>
+      AllowOverride all
+      Options -MultiViews
+   </Directory>
+</VirtualHost>

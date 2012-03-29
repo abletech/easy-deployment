@@ -1,0 +1,14 @@
+= Abletech/Deployment
+
+This gem is for encapsulating Abletech's common deployment patterns using capistrano.
+
+== Installation
+
+# Gemfile
+
+  gem 'abletech-deployment', :git => "git@git.abletech.co.nz:/var/git/abletech/abletech-deployment.git"
+
+Then run:
+
+  $ bundle install
+  $ rails g abletech:deployment

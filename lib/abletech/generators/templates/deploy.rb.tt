@@ -1,0 +1,28 @@
+require "capistrano/ext/multistage"
+require "capistrano_colors"
+require "bundler/capistrano"
+begin
+  require "abletech/deployment/capistrano"
+rescue LoadError
+  $stderr.puts "couldn't load abletech-deployment gem, try `bundle install` and running again with `bundle exec cap <stage> deploy`"
+  exit(1)
+end
+
+set :stages, %w(staging production)
+set :default_stage, "staging"
+
+set :application, "<%= application_name %>" # TODO: edit application name
+set :deploy_to,   "/var/apps/#{application}"
+
+# TODO: fill in git repo
+# set :repository,  "git@github.com:AbleTech/abletech-deployment.git"
+set :scm, :git
+set :deploy_via, :remote_cache
+set :git_shallow_clone, 1
+
+
+# If deploying with RVM:
+# Add gem 'rvm' to the development group in Gemfile, and uncomment following lines
+# require "rvm/capistrano"
+# set :rvm_type, :system
+# set :rvm_ruby_string, '1.9.2-p290'
