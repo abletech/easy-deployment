@@ -9,7 +9,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   
       desc "Updates this application's crontab file entries"
       task :update_crontab do
-        run "cd #{current_path} && #{bundle_cmd} exec whenever -f #{current_path}/config/deploy/#{rails_env}/whenever.rb --write-crontab #{application} --set \"current_path=#{current_path}&bundle_cmd=#{fetch(:bundle_cmd, 'bundle')}&rails_env=#{rails_env}&application=#{application}\""
+        run "cd #{current_path} && #{bundle_cmd} exec whenever -f #{current_path}/config/deploy/#{rails_env}/whenever.rb --update-crontab #{application} --set \"current_path=#{current_path}&bundle_cmd=#{fetch(:bundle_cmd, 'bundle')}&rails_env=#{rails_env}&application=#{application}\""
       end
     end 
   end
