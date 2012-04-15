@@ -36,5 +36,4 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   after "deploy:update_code", "deploy:configure"
-  after "deploy:configure", "web:configure"
 end
