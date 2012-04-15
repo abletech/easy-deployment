@@ -1,10 +1,10 @@
 require 'rails/generators'
 
-module Abletech
+module Easy
   class LogrotateGenerator < Rails::Generators::NamedBase
     source_root File.join(File.dirname(__FILE__), "templates") # Where templates are copied from
 
-    desc %{Generate a new logrotate.conf file for the given environment name\ne.g. rails g abletech:logrotate workshop}
+    desc %{Generate a new logrotate.conf file for the given environment name\ne.g. rails g easy:logrotate workshop}
 
     def generate_stage
       # directory("stage", "config/#{name}")

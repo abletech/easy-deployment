@@ -2,9 +2,9 @@ require "capistrano/ext/multistage"
 require "capistrano_colors"
 require "bundler/capistrano"
 begin
-  require "abletech/deployment/capistrano"
+  require "easy/deployment/capistrano"
 rescue LoadError
-  $stderr.puts "couldn't load abletech-deployment gem, try `bundle install` and running again with `bundle exec cap <stage> deploy`"
+  $stderr.puts "couldn't load easy-deployment gem, try `bundle install` and running again with `bundle exec cap <stage> deploy`"
   exit(1)
 end
 
@@ -15,7 +15,7 @@ set :application, "<%= application_name %>" # TODO: edit application name
 set :deploy_to,   "/var/apps/#{application}"
 
 # TODO: fill in git repo
-# set :repository,  "git@github.com:AbleTech/abletech-deployment.git"
+# set :repository,  "git@github.com:AbleTech/easy-deployment.git"
 set :scm, :git
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
