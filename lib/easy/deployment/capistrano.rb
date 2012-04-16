@@ -30,7 +30,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   namespace :web do
     desc "Configure this site & Reload the apache configuration"
     task :configure do
-      run "cp -f #{release_path}/config/deploy/#{stage}/apache/* /etc/apache2/sites-enabled/"
+      run "cp -f #{current_path}/config/deploy/#{stage}/apache/* /etc/apache2/sites-enabled/"
       run "sudo apache2ctl -k graceful"
     end
   end
