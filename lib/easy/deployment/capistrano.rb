@@ -9,11 +9,24 @@ Capistrano::Configuration.instance(:must_exist).load do
   default_run_options[:pty] = true
 
   namespace :deploy do
+    desc "Initial deploy including database creation and apache2 config setup"
+    task :inital do
+      set :migrate_target, :latest
+      update # updates_code and creates symlink
+      create_db
+      migrate
+      top.namespace :easy do
+        namespace(:logrotate){setup}
+        namespace(:apache) {configure}
+      end
+      restart
+    end
+
     # By default, we deploy using passenger as an app server
     task :start do ; end
     task :stop do ; end
     task :restart, :roles => :app, :except => { :no_release => true } do
-      run "touch #{File.join(current_path,'tmp','restart.txt')}"
+      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
     end
 
     desc "[internal] Copies the application configuration files for this environment"
@@ -25,15 +38,19 @@ Capistrano::Configuration.instance(:must_exist).load do
       end
     end
 
-  end
-
-  namespace :web do
-    desc "Configure this site & Reload the apache configuration"
-    task :configure do
-      run "cp -f #{current_path}/config/deploy/#{stage}/apache/* /etc/apache2/sites-enabled/"
-      run "sudo apache2ctl -k graceful"
+    desc "Allow deployment of a branch, commit or tag"
+    task :set_branch do
+      set :branch, ENV['tag'] || 'master'
     end
   end
 
-  after "deploy:update_code", "deploy:configure"
+  namespace :web do
+    desc "Deprecated - use apache:configure instead"
+    task :configure, :roles => :app, :except => { :no_release => true } do
+      puts "Deprecated - use apache:configure instead"
+    end
+  end
+
+
+  before 'deploy:update_code',  'deploy:set_branch' # allow specification of branch, tag or commit on the command line
 end
