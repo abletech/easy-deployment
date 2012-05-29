@@ -25,4 +25,8 @@ Capistrano::Configuration.instance(:must_exist).load do
       run "ps -fu deploy"
     end
   end
+
+  # niet hooks
+  after  'deploy:start',        'niet:start'
+  after  'deploy:restart',      'niet:restart'
 end
