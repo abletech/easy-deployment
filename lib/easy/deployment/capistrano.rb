@@ -10,14 +10,14 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   namespace :deploy do
     desc "Initial deploy including database creation and apache2 config setup"
-    task :inital do
+    task :initial do
       set :migrate_target, :latest
       update # updates_code and creates symlink
       create_db
       migrate
       top.namespace(:logrotate) {setup}
-      top.namespace(:apache)    {configure}
-      restart
+      top.namespace(:apache)    {configure; restart}
+      start # doesn't do anything but triggers associated hooks
     end
 
     desc "Create the database"
