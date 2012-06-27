@@ -2,8 +2,8 @@
 require File.expand_path('../lib/easy-deployment/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors          = ["Jeremy Olliver", "Nigel Ramsay", "Shevaun Coker"]
-  gem.email             =  ["jeremy.olliver@gmail.com", "nigel.ramsay@abletech.co.nz", "shevaun.coker@abletech.co.nz"]
+  gem.authors          = ["Jeremy Olliver", "Nigel Ramsay", "Shevaun Coker", "Cameron Fowler"]
+  gem.email             =  ["jeremy.olliver@gmail.com", "nigel.ramsay@abletech.co.nz", "shevaun.coker@abletech.co.nz", "hiding.in.a.box@gmail.com"]
   gem.description    = %q{Easy deployment: includes a generator, and capistrano configuration}
   gem.summary       = %q{Gem for encapsulating abletech's deployment practices}
   gem.homepage     = ""
