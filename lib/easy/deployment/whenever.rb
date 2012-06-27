@@ -4,12 +4,14 @@ Capistrano::Configuration.instance(:must_exist).load do
     namespace :whenever do
       desc "Removes this application's entries from the user's crontab file"
       task :clear_crontab do
-        run "cd #{release_path} && #{bundle_cmd} exec whenever -f #{release_path}/config/deploy/#{rails_env}/whenever.rb --clear-crontab #{application}"
+        puts "Deprecated - use whenever/capistrano instead"
+        run "cd #{release_path} && bundle exec whenever -f #{release_path}/config/deploy/#{rails_env}/whenever.rb --clear-crontab #{application}"
       end
 
       desc "Updates this application's crontab file entries"
       task :update_crontab do
-        run "cd #{current_path} && #{bundle_cmd} exec whenever -f #{current_path}/config/deploy/#{rails_env}/whenever.rb --update-crontab #{application} --set \"current_path=#{current_path}&bundle_cmd=#{fetch(:bundle_cmd, 'bundle')}&rails_env=#{rails_env}&application=#{application}\""
+        puts "Deprecated - use whenever/capistrano instead"
+        run "cd #{current_path} && bundle exec whenever -f #{current_path}/config/deploy/#{rails_env}/whenever.rb --update-crontab #{application} --set \"current_path=#{current_path}&bundle_cmd=#{fetch(:bundle_cmd, 'bundle')}&rails_env=#{rails_env}&application=#{application}\""
       end
     end
   end
