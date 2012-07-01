@@ -6,4 +6,6 @@ Capistrano::Configuration.instance(:must_exist).load do
       run "cp #{current_path}/config/deploy/#{stage}/logrotate.conf /etc/logrotate.d/#{application}.conf"
     end
   end
+
+  before 'deploy:start', 'logrotate:setup'
 end

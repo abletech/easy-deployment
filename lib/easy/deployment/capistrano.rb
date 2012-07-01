@@ -9,14 +9,12 @@ Capistrano::Configuration.instance(:must_exist).load do
   default_run_options[:pty] = true
 
   namespace :deploy do
-    desc "Initial deploy including database creation and apache2 config setup"
+    desc "Initial deploy including database creation and triggers hooks on start. Require 'easy/deployment/apache' to configure and restart apache as part of this task, and require 'easy/deployment/logrotate' to setup logrotate as part of this task"
     task :initial do
       set :migrate_target, :latest
       update # updates_code and creates symlink
       create_db
       migrate
-      top.namespace(:logrotate) {setup}
-      top.namespace(:apache)    {configure; restart}
       start # doesn't do anything but triggers associated hooks
     end
 
@@ -66,14 +64,6 @@ Capistrano::Configuration.instance(:must_exist).load do
       set :branch, ENV['tag'] || 'master'
     end
   end
-
-  namespace :web do
-    desc "Deprecated - use apache:configure instead"
-    task :configure, :roles => :app, :except => { :no_release => true } do
-      puts "Deprecated - use apache:configure instead"
-    end
-  end
-
 
   before 'deploy:update_code',  'deploy:set_branch' # allow specification of branch, tag or commit on the command line
 end
