@@ -3,6 +3,22 @@
 
 Capistrano::Configuration.instance(:must_exist).load do
 
+  # color the string
+  def red(str)
+    "\e[31m#{str}\e[0m"
+  end
+
+  # Get the name of the current local branch
+  def current_git_branch
+    current_branch = `git symbolic-ref HEAD 2> /dev/null`.strip.gsub(/^refs\/heads\//, '')
+    puts red("Warning: Redundant use of 'tag'. Your current branch is deployed by default") if ENV['tag'] == current_branch
+    branch_to_deploy = ENV['tag'] || current_branch
+    puts "Deploying branch #{red branch_to_deploy}"
+    branch_to_deploy
+  end
+
+  set :branch, current_git_branch
+
   # ssh options
   set :use_sudo, false
   ssh_options[:forward_agent] = true # run `ssh-add ;` to ensure your identity file is added
@@ -30,19 +46,6 @@ Capistrano::Configuration.instance(:must_exist).load do
       run "cd #{directory}; RAILS_ENV=#{stage} bundle exec rake db:create"
     end
 
-    desc "Load reference data"
-    task :reference_data, :roles => :db, :only => { :primary => true } do
-      migrate_target = fetch(:migrate_target, :latest)
-
-      directory = case migrate_target.to_sym
-                  when :current then current_path
-                  when :latest  then latest_release
-                  else raise ArgumentError, "unknown migration target #{migrate_target.inspect}"
-                  end
-
-      run "cd #{directory} && RAILS_ENV=#{stage} bundle exec rake reference:load"
-    end
-
     # By default, we deploy using passenger as an app server
     task :start do ; end
     task :stop do ; end
@@ -58,12 +61,5 @@ Capistrano::Configuration.instance(:must_exist).load do
         puts "Skipping copying of config/deploy/#{stage}/database.yml as the file is not present"
       end
     end
-
-    desc "Allow deployment of a branch, commit or tag"
-    task :set_branch do
-      set :branch, ENV['tag'] || 'master'
-    end
   end
-
-  before 'deploy:update_code',  'deploy:set_branch' # allow specification of branch, tag or commit on the command line
 end
