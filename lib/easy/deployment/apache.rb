@@ -9,8 +9,8 @@ Capistrano::Configuration.instance(:must_exist).load do
       run "ln -fs /etc/apache2/sites-available/#{application} /etc/apache2/sites-enabled/#{application}"
     end
 
-    [:stop, :start, :restart].each do |action|
-      desc "#{action.to_s.capitalize} Apache"
+    [:stop, :start, :restart, :graceful].each do |action|
+      desc (action == :graceful ? "Restart Apache gracefully" : "#{action.to_s.capitalize} Apache")
       task action, :roles => :web do
         run "sudo apache2ctl #{action.to_s}"
       end
