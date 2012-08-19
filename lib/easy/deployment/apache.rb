@@ -18,5 +18,5 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   before 'deploy:start', 'apache:configure'
-  after 'apache:configure', 'apache:restart'
+  after 'apache:configure', 'apache:graceful'
 end
