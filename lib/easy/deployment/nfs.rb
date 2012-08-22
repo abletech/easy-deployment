@@ -12,7 +12,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     
   namespace :nfs do
     desc "Create folders under the nfs path to be shared between app servers"
-    task :create_shared_dirs, :roles => :app, :primary => true do
+    task :create_shared_dirs, :roles => :app, :only => {:primary => true} do
       nfs_shared_children.each do |child_path|
         run "mkdir -p #{nfs_path}/#{application}/#{child_path}; chmod g+w #{nfs_path}/#{application}/#{child_path}"
       end
