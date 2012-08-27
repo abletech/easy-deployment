@@ -1,0 +1,11 @@
+0.2.2 - 2012-08-27
+
+  Enhancements:
+
+    * Add apache:configtest capistrano task
+
+        cap apache:configtest
+
+  Bug Fixes:
+
+    * Spelling corrections
