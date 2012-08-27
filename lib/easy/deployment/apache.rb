@@ -1,5 +1,5 @@
-# Define some defaults for capistrano deploys.
-# To load this capistrano configuraiton, require 'easy/deployment/apache' from deploy.rb
+# Define some defaults for Capistrano deploys.
+# To load this Capistrano configuration, require 'easy/deployment/apache' from deploy.rb
 
 Capistrano::Configuration.instance(:must_exist).load do
   namespace :apache do
