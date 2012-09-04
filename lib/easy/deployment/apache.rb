@@ -3,8 +3,15 @@
 
 Capistrano::Configuration.instance(:must_exist).load do
   namespace :apache do
-    desc "Configure this site & Reload the apache configuration"
-    task :configure, :roles => :app, :except => { :no_release => true } do
+    desc "Configure this site & gracefully reload the Apache configuration"
+    task :configure_and_reload, :roles => :web, :except => { :no_release => true } do
+      configure
+      configtest
+      graceful
+    end
+
+    desc "Configure this site"
+    task :configure, :roles => :web, :except => { :no_release => true } do
       run "cp -f #{current_path}/config/deploy/#{stage}/apache.conf /etc/apache2/sites-available/#{application}"
       run "ln -fs /etc/apache2/sites-available/#{application} /etc/apache2/sites-enabled/#{application}"
     end
@@ -17,6 +24,5 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
   end
 
-  before 'deploy:start', 'apache:configure'
-  after 'apache:configure', 'apache:graceful'
+  before 'deploy:start', 'apache:configure_and_reload'
 end
