@@ -1,3 +1,11 @@
+0.3.0 - 2012-09-04
+
+  Enhancements:
+
+    * Add apache:configure_and_reload capistrano task, which will configure the site, test the configuration & gracefully reload the Apache configuration
+
+        cap apache:configure_and_reload
+
 0.2.2 - 2012-08-27
 
   Enhancements:

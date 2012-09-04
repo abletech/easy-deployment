@@ -3,7 +3,7 @@
 
 Capistrano::Configuration.instance(:must_exist).load do
   namespace :apache do
-    desc "Configure this site & gracefully reload the Apache configuration"
+    desc "Configure this site, test the configuration & gracefully reload the Apache configuration"
     task :configure_and_reload, :roles => :web, :except => { :no_release => true } do
       configure
       configtest
