@@ -62,4 +62,13 @@ Capistrano::Configuration.instance(:must_exist).load do
       end
     end
   end
+
+  desc "Tag the release by creating or moving a remote branch named after the current environment"
+  task :tag_release do
+    unless system("git branch -r | grep 'origin/releases/#{stage}'")
+      system "git push origin :releases/#{stage}"
+    end
+    system "git push origin #{branch}:releases/#{stage}"
+  end
+
 end
