@@ -1,3 +1,9 @@
+0.3.3 - 2012-10-16
+
+  Bug Fixes
+
+    * deploy:reference should use the rails_env, not the stage
+
 0.3.0 - 2012-09-04
 
   Enhancements:
