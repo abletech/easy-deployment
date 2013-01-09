@@ -6,6 +6,8 @@ Capistrano::Configuration.instance(:must_exist).load do
     'true' ==  capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
   end
 
+  set :apachectl_bin, "apache2ctl"
+
   namespace :apache do
     desc "Configure this site, test the configuration & gracefully reload the Apache configuration"
     task :configure_and_reload, :roles => :web, :except => { :no_release => true } do
@@ -47,7 +49,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     [:stop, :start, :restart, :graceful, :configtest].each do |action|
       desc (action == :graceful ? "Restart Apache gracefully" : "#{action.to_s.capitalize} Apache")
       task action, :roles => :web do
-        run "sudo apache2ctl #{action.to_s}"
+        run "sudo #{apachectl_bin} #{action.to_s}"
       end
     end
   end
