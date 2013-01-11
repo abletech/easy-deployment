@@ -11,12 +11,12 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   namespace :niet do
     desc "Setup Niet"
-    task :setup, roles: niet_roles do
+    task :setup, roles: lambda { niet_roles } do
       run "mkdir -p #{shared_path}/niet"
     end
 
     desc "Starts the niet process monitor and its jobs"
-    task :start, roles: niet_roles do
+    task :start, roles: lambda { niet_roles } do
       if remote_file_exists?("#{shared_path}/niet")
         niet_process_count.times do |i|
           run "niet -p #{shared_path}/niet/jobs_worker_#{i}.pid -c #{current_path} bundle exec rake jobs:work RAILS_ENV=#{stage}"
@@ -27,7 +27,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
 
     desc "Restarts the processes running under niet"
-    task :restart, roles: niet_roles do
+    task :restart, roles: lambda { niet_roles } do
       if remote_file_exists?("#{shared_path}/niet")
         run "for job in #{shared_path}/niet/* ; do kill -TERM `cat $job`; done"
       else
@@ -36,12 +36,12 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
 
     desc "Stops the processes running under niet and the niet process monitor"
-    task :stop, roles: niet_roles do
+    task :stop, roles: lambda { niet_roles } do
       run "for job in #{shared_path}/niet/* ; do kill -QUIT `cat $job`; done"
     end
 
-    desc "Diplays the status of the niet process monitor"
-    task :status, roles: niet_roles do
+    desc "Displays the status of the niet process monitor"
+    task :status, roles: lambda { niet_roles } do
       run "for job in #{shared_path}/niet/* ; do ps -fw `cat $job`; done"
     end
   end
