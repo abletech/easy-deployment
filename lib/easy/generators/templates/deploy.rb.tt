@@ -1,5 +1,4 @@
 require "capistrano/ext/multistage"
-require "capistrano_colors"
 require "bundler/capistrano"
 begin
   require "easy/deployment/capistrano"
@@ -8,10 +7,21 @@ rescue LoadError
   exit(1)
 end
 
+# Deployment tools
+<% unless options[:disable_bugsnag] %>require "bugsnag/capistrano"<% end %>
+<% unless options[:disable_newrelic] %>
+require "new_relic/recipes"
+after "deploy:update", "newrelic:notice_deployment"
+<% end %>
+<% unless options[:disable_backup] %>
+require "easy/deployment/backup"
+require "easy/deployment/whenever"
+<% end %>
+
 set :stages, %w(staging production)
 set :default_stage, "staging"
 
-set :application, "<%= application_name %>" # TODO: edit application name
+set :application, <%= '\"' + application_name '\"' %> # TODO: edit application name
 set :deploy_to,   "/var/apps/#{application}"
 
 # TODO: fill in git repo
@@ -19,6 +29,22 @@ set :deploy_to,   "/var/apps/#{application}"
 set :scm, :git
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
+
+set :bundle_without, defer { fetch(:stages).gsub(fetch(:stage)) } # Bundle without other stage environments
+
+
+# Optional feature, apache restarts
+# require "easy/deployment/apache"
+# set :apachectl_bin, "/usr/sbin/apachectl"
+
+# Optional feature, configure log rotation
+# require "easy/deployment/logrotate"
+
+# Optional feature, db reference data. Requires easy-reference gem
+# require "easy/deployment/dbreference"
+
+# Optional feature, capistrano performance report. Timings for slow deploys
+# require "easy/deployment/performance"
 
 
 # If deploying with RVM:
