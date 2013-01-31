@@ -8,13 +8,13 @@ module Easy
 
     def generate_stage
       directory("stage", "config/deploy/#{name}")
-      copy_file("stage.rb.tt", "config/deploy/#{name}.rb")
+      template("stage.rb.tt", "config/deploy/#{name}.rb")
 
       # Ensure we have a config/environments/<env-name>.rb
       dest = "config/environments/#{name}.rb"
       in_root do
         unless File.exist?(dest)
-          run("cp config/environments/production.rb #{dest}")
+          run("cp config/environments/staging.rb #{dest}")
         end
       end
     end

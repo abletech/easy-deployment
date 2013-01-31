@@ -19,7 +19,7 @@ module Easy
       capify!
       remove_file("config/deploy.rb") unless deploy_file_already_existed # Removing this means we aren't prompted to overwrite if we only have the default capistrano deploy.rb
       # Write our default deploy.rb
-      copy_file("deploy.rb.tt", "config/deploy.rb")
+      template("deploy.rb.tt", "config/deploy.rb")
 
       # Generate all stages specified
       options[:stages] ||= %w(staging production)
@@ -48,6 +48,15 @@ TODO:
       OptionParser.new do |opt|
         opt.on("-s", "--stages" "Stages to generate") do |s|
           opts[:stages] = s.split(",") if s.present?
+        end
+        opt.on("--disable-backup", "Disable backup") do |d|
+          opts[:disable_backup] = true
+        end
+        opt.on("--disable-bugsnag", "Disable bugsnag") do |d|
+          opts[:disable_bugsnag] = true
+        end
+        opt.on("--disable-newrelic", "Disable NewRelic") do |d|
+          opts[:disable_newrelic] = true
         end
       end.parse(args)
       opts
