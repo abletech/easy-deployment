@@ -1,9 +1,10 @@
-require "capistrano/ext/multistage"
-require "bundler/capistrano"
 begin
+  require "capistrano/ext/multistage"
+  require "bundler/capistrano"
   require "easy/deployment/capistrano"
-rescue LoadError
-  $stderr.puts "couldn't load easy-deployment gem, try `bundle install` and running again with `bundle exec cap <stage> deploy`"
+rescue LoadError => e
+  $stderr.puts "couldn't load deployment gems, try `bundle install` and running again with `bundle exec cap <stage> deploy`"
+  $stderr.puts e.message
   exit(1)
 end
 
@@ -33,17 +34,17 @@ set :git_shallow_clone, 1
 set :bundle_without, defer { fetch(:stages).gsub(fetch(:stage)) } # Bundle without other stage environments
 
 
-# Optional feature, apache restarts
+# Optional feature: apache restarts
 # require "easy/deployment/apache"
 # set :apachectl_bin, "/usr/sbin/apachectl"
 
-# Optional feature, configure log rotation
+# Optional feature: configure log rotation
 # require "easy/deployment/logrotate"
 
-# Optional feature, db reference data. Requires easy-reference gem
+# Optional feature: db reference data. Requires easy-reference gem
 # require "easy/deployment/dbreference"
 
-# Optional feature, capistrano performance report. Timings for slow deploys
+# Optional feature: capistrano performance report. Timings for slow deploys
 # require "easy/deployment/performance"
 
 
