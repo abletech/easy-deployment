@@ -72,4 +72,14 @@ Capistrano::Configuration.instance(:must_exist).load do
     system "git push origin #{branch}:releases/#{stage}"
   end
 
+  desc "Annotate release into version.txt"
+  task :annotate_release do
+    git_revision = `git rev-parse #{branch} 2> /dev/null`.strip
+    version_info = "Branch/Tag: #{branch}\\nRevision: #{git_revision}\\nDeployed To: #{stage}\\n\\nDeployed At: #{Time.now}\\nBy: #{`whoami`.chomp}\\n"
+    run %Q(printf "#{version_info}" > #{release_path}/version.txt)
+  end
+
+  after "deploy:finalize_update", "deploy:tag_release"
+  after "deploy:finalize_update", "deploy:annotate_release"
+
 end

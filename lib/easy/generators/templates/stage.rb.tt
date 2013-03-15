@@ -1,5 +1,4 @@
 server '<<%= name %>-ip-address>', :web, :app, :db, :primary => true
 # :db, :primary => true is where migrations will run.
 
-set :branch, "master"
 set :rails_env, "<%= name %>"
