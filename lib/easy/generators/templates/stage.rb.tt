@@ -1,6 +1,5 @@
-# role :web, "<<%= name %>-ip-address>"                   # Your HTTP server, Apache/etc
-# role :app, "<<%= name %>-ip-address>"                   # This may be the same as your `Web` server
-# role :db,  "<<%= name %>-ip-address>", :primary => true # This is where Rails migrations will run
+server '<<%= name %>-ip-address>', :web, :app, :db, :primary => true
+# :db, :primary => true is where migrations will run.
 
 set :branch, "master"
 set :rails_env, "<%= name %>"

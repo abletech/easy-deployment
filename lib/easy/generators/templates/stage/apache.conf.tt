@@ -1,4 +1,4 @@
-<VirtualHost <<%= name %>-ip-address>:80>
+<VirtualHost *:80>
    ServerName <%= name %>.<%= application_name %>.co.nz
 
    DocumentRoot /var/apps/<%= application_name %>/current/public

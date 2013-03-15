@@ -1,0 +1,5 @@
+---
+access_key_id    : "TODO: fill in your access key"
+secret_access_key: "TODO: fill in your secret here"
+backup_bucket    : "TODO: fill in your backup bucket"
+region           : "us-east-1"

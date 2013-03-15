@@ -10,11 +10,9 @@ end
 
 # Deployment tools
 <% unless options[:disable_bugsnag] %>require "bugsnag/capistrano"<% end %>
-<% unless options[:disable_newrelic] %>
-require "new_relic/recipes"
+<% unless options[:disable_newrelic] %>require "new_relic/recipes"
 after "deploy:update", "newrelic:notice_deployment"
-<% end %>
-<% unless options[:disable_backup] %>
+<% end %><% unless options[:disable_backup] %># Backup
 require "easy/deployment/backup"
 require "easy/deployment/whenever"
 <% end %>
@@ -22,11 +20,10 @@ require "easy/deployment/whenever"
 set :stages, %w(staging production)
 set :default_stage, "staging"
 
-set :application, "<%= application_name %>" # TODO: edit application name
+set :application, "<%= application_name %>"
 set :deploy_to,   "/var/apps/#{application}"
 
-# TODO: fill in git repo
-# set :repository,  "git@github.com:AbleTech/easy-deployment.git"
+# set :repository,  "git@github.com:AbleTech/easy-deployment.git" # TODO: fill in git repo
 set :scm, :git
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1

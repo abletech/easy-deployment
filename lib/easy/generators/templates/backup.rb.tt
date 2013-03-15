@@ -1,0 +1,58 @@
+Backup::Model.new("<%= application_name %>", "Remote Backup") do
+
+  # This is the rails root location, given this file is located at in Rails.root/config/backup.rb
+  rails_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+
+  <%
+    database_engine = "'TODO: FILL IN'"
+    database_config_filename = "database.yml"
+    if defined?(PG)
+      database_engine = 'PostgreSQL'
+    elsif defined?(Mongo)
+      database_engine = 'MongoDB'
+      database_config_filename = "mongo.yml"
+    end
+  %>
+  database_config = YAML.load_file(File.join(rails_root, "config/<%= database_config_filename %>"))
+
+  database <%= database_engine %> do |db|
+    db.name               = database_config["database"]
+    db.host               = database_config["host"] if database_config["host"]
+    db.port               = database_config["port"] if database_config["port"]
+    db.username           = database_config["username"] if database_config["username"]
+    db.password           = database_config["password"] if database_config["password"]
+    db.additional_options = []
+  end
+
+  archive :system_folder_backup do |archive|
+    # add folders (including sub-folders)
+    folder = File.expand_path("#{rails_root}/../shared/system/")
+    archive.add(folder)
+  end
+
+
+  s3config = YAML.load_file(File.join(rails_root, "config/s3.yml"))
+
+  store_with S3 do |s3|
+    s3.access_key_id      = s3config['access_key_id']
+    s3.secret_access_key  = s3config['secret_access_key']
+    s3.region             = s3config['region']
+    s3.bucket             = s3config['backup_bucket']
+    s3.path               = "/<%= application_name %>/#{ENV['RAILS_ENV']}/"
+    s3.keep               = 30
+  end
+
+  compress_with Bzip2 do |compression|
+    compression.level = 9
+  end
+
+  notify_by Mail do |mail|
+    mail.on_success           = false
+    mail.on_warning           = true
+    mail.on_failure           = true
+
+    mail.delivery_method      = :sendmail
+    mail.from                 = 'TODO: set from address'
+    mail.to                   = 'TODO: set delivery address'
+  end
+end

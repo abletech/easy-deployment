@@ -1,0 +1,8 @@
+/var/apps/<%= application_name %>/shared/log/*.log {
+  daily
+  missingok
+  rotate 7
+  compress
+  delaycompress
+  copytruncate
+}

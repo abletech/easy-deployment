@@ -9,6 +9,7 @@ module Easy
     def generate_stage
       directory("stage", "config/deploy/#{name}")
       template("stage.rb.tt", "config/deploy/#{name}.rb")
+      template("stage/apache.conf.tt", "config/deploy/#{name}/apache.conf")
 
       # Ensure we have a config/environments/<env-name>.rb
       dest = "config/environments/#{name}.rb"
