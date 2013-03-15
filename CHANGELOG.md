@@ -1,14 +1,15 @@
 # Changelog for easy-deployment
 
-## 0.5.0
+## 0.5.0 (unreleased)
 
-Large rewrite of both templates, and generator code
+Large rewrite of both templates, and generator code.
+
 Major new feature is generation of backup config using the gems `whenever` and `backup`
 
 Enhancements:
 
-* Now fixed to capistrano 2.13.5 - dependencies on capistrano-ext and capistrano_colors which are now bundled in capistrano are removed.
-* Added annotation task to write branch name, git revision, time of deploy, and user running the deploy to the application root as version.txt
+* Now fixed to capistrano 2.13.5 - dependencies on external capistrano-ext and capistrano_colors are removed.
+* Added annotation task to write branch name, git revision, time of deploy, and user to the application root as version.txt
 * Removed messy optparse code, and let Thor handle option parsing
 * `deploy.rb` template now displays all feature modules, with some optional ones commented out
 * `deploy.rb` template is now updated with current deployment practices (including newrelic and bugsnag services)
@@ -19,32 +20,32 @@ Bug Fixes:
 * `deploy.rb` and `staging.rb` etc files are rendered correctly as templates, instead of copied over without rendering
 * use `deploy:create_symlink` instead of deprecated `deploy:symlink`
 
-## 0.4.4
+## 0.4.4 - 2013-01-11
 
 Bug Fixes:
 
 * Bugfix for previous niet role definition, variable should be delayed being evaluated
 
-## 0.4.3
+## 0.4.3 - 2013-01-10
 
 Enhancements:
 
 * the server role for the niet tasks are now configurable via `set :niet_roles, [:job]`
 
-## 0.4.2
+## 0.4.2 - 2013-01-09
 
 Enhancements:
 
-* Added documentation to README.md for several of the optional features
 * path to the binary apachectl command is now able to be configured via `set :apachectl_bin`
+* Added documentation to README.md for several of the optional features
 
-## 0.4.1
+## 0.4.1 - 2012-12-10
 
 Bug Fixes:
 
 * raise exception if `cap niet:start` is run without `cap niet:setup` being run first
 
-## 0.4.0
+## 0.4.0 - 2012-11-19
 
 Enhancements:
 
