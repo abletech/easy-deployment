@@ -22,6 +22,9 @@ Run:
 
     $ rails g easy:deployment
 
+The templated configuration files leave several lines blank for you to fill in with TODO placeholders, so it's a good idea to run `rake notes:todo` after installation to see if you've missed any.
+Replace any missing configuration lines, and don't forget to remove the TODO text/comments
+
 ## Integration
 
 ### Apache
@@ -51,6 +54,14 @@ If you have logrotate installed and /etc/logrotate.d is writable by your deploy 
     require "easy/deployment/logrotate"
 
 within your deploy.rb to have a logrotate config automatically written
+
+### Backup
+
+This includes a generator to create a backup configuration (generator may be disabled when running easy:deployment by passing --disable-backup, or run by itself as `rails generate easy:backup`)
+
+The created backup configuration will be scheduled on deploy to run nightly via the whenever integration below, and with a backup configuration at `config/backup.rb`
+The default setup is to backup the capistrano system folder, the configured database, to store the backup in S3, and notify of failures via email.
+All these settings are configurable, to read more see the documentation for the backup gem https://github.com/meskyanichi/backup and setup your configuration to suit yourself.
 
 ### Whenever
 
