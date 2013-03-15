@@ -14,7 +14,8 @@ end
 after "deploy:update", "newrelic:notice_deployment"
 <% end %><% unless options[:disable_backup] %># Backup
 require "easy/deployment/backup"
-require "easy/deployment/whenever"
+require "whenever/capistrano"
+set :whenever_command, "#{fetch(:bundle_cmd, "bundle")} exec whenever"
 <% end %>
 
 set :stages, %w(staging production)
