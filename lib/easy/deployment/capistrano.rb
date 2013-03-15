@@ -78,7 +78,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     run %Q(printf "#{version_info}" > #{release_path}/version.txt)
   end
 
-  after "deploy:finalize_update", "tag_release"
-  after "deploy:finalize_update", "annotate_release"
+  after "deploy:update", "tag_release"
+  after "deploy:update", "annotate_release"
 
 end
