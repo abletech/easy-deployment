@@ -2,7 +2,6 @@
 # To load this capistrano configuraiton, require 'easy/deployment/capistrano' from deploy.rb
 
 Capistrano::Configuration.instance(:must_exist).load do
-  require 'capistrano_colors'
 
   # color the string
   def red(str)
