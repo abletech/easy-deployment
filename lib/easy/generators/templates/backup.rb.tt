@@ -39,7 +39,7 @@ Backup::Model.new("<%= application_name %>", "Remote Backup") do
     s3.region             = s3config['region']
     s3.bucket             = s3config['backup_bucket']
     s3.path               = "/<%= application_name %>/#{ENV['RAILS_ENV']}/"
-    s3.keep               = 30
+    # s3.keep               = 30 # Enable this if you have read/delete access on S3 to clean up old backups
   end
 
   compress_with Bzip2 do |compression|
