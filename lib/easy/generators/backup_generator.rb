@@ -6,8 +6,6 @@ module Easy
 
     include GeneratorHelpers
 
-    desc %{Generates a backup config set to run nightly and upload to S3}
-
     RAILS_4_GEMS = {
       "backup" => "~> 3.0.27",
       "fog" => "~> 1.4.0",
@@ -22,6 +20,8 @@ module Easy
       "excon"   => "~> 0.17.0",
       "mail"    => "~> 2.5.0"
     }
+
+    desc %{Generates a backup config set to run nightly and upload to S3}
 
     def create_backup_files
       gem_requirements = case Rails::VERSION::MAJOR
