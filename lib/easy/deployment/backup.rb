@@ -15,5 +15,5 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   after 'deploy:setup', 'easy:backup:setup'
-  after 'deploy:symlink', 'easy:backup:symlink_s3_config'
+  after 'deploy:create_symlink', 'easy:backup:symlink_s3_config'
 end

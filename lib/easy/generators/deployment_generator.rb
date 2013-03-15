@@ -41,6 +41,11 @@ TODO:
         gem("newrelic_rpm", ">= 3.5.3.25")
         needs_bundle = true
       end
+      unless options[:disable_bugsnag]
+        say_status(:configure, "bugsnag")
+        gem("bugsnag")
+        needs_bundle = true
+      end
 
       unless options[:disable_backup]
         generate("easy:backup")

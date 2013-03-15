@@ -29,8 +29,10 @@ set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 # easy-deployment sets the branch to deploy to the current local branch by default.
 
-set :bundle_without, defer { fetch(:stages).gsub(fetch(:stage)) } # Bundle without other stage environments
+set :bundle_without, defer { fetch(:stages) - [fetch(:stage)] } # Bundle without other stage environments
 
+set :user, "deploy"
+set :runner, "deploy"
 
 # Optional feature: apache restarts
 # require "easy/deployment/apache"

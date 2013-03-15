@@ -17,6 +17,6 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   after "deploy:update_code", "easy:whenever:clear_crontab"
-  after "deploy:symlink", "easy:whenever:update_crontab"
+  after "deploy:create_symlink", "easy:whenever:update_crontab"
   after "deploy:rollback", "easy:whenever:update_crontab"
 end
