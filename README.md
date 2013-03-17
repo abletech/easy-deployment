@@ -1,5 +1,9 @@
 # Easy::Deployment
 
+[![Code Climate](https://codeclimate.com/github/AbleTech/easy-deployment.png)](https://codeclimate.com/github/AbleTech/easy-deployment)
+[![Dependency Status](https://gemnasium.com/AbleTech/easy-deployment.png)](https://gemnasium.com/AbleTech/easy-deployment)
+[![Gem Version](https://badge.fury.io/rb/easy-deployment.png)](http://badge.fury.io/rb/easy-deployment)
+
 This gem is for encapsulating Abletech's common deployment patterns using capistrano.
 
 ## Installation
@@ -44,7 +48,11 @@ If necessary, you can set the path to the apache2ctl binary via:
 
     set :apachectl_bin, "/usr/sbin/apachectl"
 
-This assumes your deploy user has access to run the apachectl command with sudo privileges
+This assumes your deploy user has access to run the apachectl command with sudo privileges. As a recommended security practice, your deploy user should not have general sudo access, instead configure limited sudo access for specific commands only, declaring the full binary path
+
+    # Example sudoers file entries to grant deploy user passwordless sudo privileges to only these commands
+    deploy ALL=(ALL) NOPASSWD:/usr/sbin/apachectl graceful
+    deploy ALL=(ALL) NOPASSWD:/usr/sbin/apachectl configtest
 
 ### Logrotate
 
@@ -57,7 +65,13 @@ within your deploy.rb to have a logrotate config automatically written
 
 ### Backup
 
-This includes a generator to create a backup configuration (generator may be disabled when running easy:deployment by passing --disable-backup, or run by itself as `rails generate easy:backup`)
+This includes a generator to create a backup configuration (generator may be disabled when running easy:deployment by passing `--disable-backup`, or run by itself as `rails generate easy:backup`)
+
+This will generate:
+
+    config/backup.rb
+    config/schedule.rb
+    config/s3.yml
 
 The created backup configuration will be scheduled on deploy to run nightly via the whenever integration below, and with a backup configuration at `config/backup.rb`
 The default setup is to backup the capistrano system folder, the configured database, to store the backup in S3, and notify of failures via email.
