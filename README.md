@@ -1,8 +1,8 @@
 # Easy::Deployment
 
-[![Code Climate](https://codeclimate.com/github/AbleTech/easy-deployment.png)](https://codeclimate.com/github/AbleTech/easy-deployment)
 [![Dependency Status](https://gemnasium.com/AbleTech/easy-deployment.png)](https://gemnasium.com/AbleTech/easy-deployment)
 [![Gem Version](https://badge.fury.io/rb/easy-deployment.png)](http://badge.fury.io/rb/easy-deployment)
+[![Code Climate](https://codeclimate.com/github/AbleTech/easy-deployment.png)](https://codeclimate.com/github/AbleTech/easy-deployment)
 
 This gem is for encapsulating Abletech's common deployment patterns using capistrano.
 
