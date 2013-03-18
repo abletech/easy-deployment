@@ -11,6 +11,7 @@ Easy Deployment Config now setup!
 
 TODO:
   * Set the correct git repository in config/deploy.rb
+  * Edit Capfile and enable asset pipeline compilation if you are using it (uncomment load 'deploy/assets')
 }
 
     desc %{Generates standard able technology deployment script using capistrano}
