@@ -1,6 +1,6 @@
 # Changelog for easy-deployment
 
-## 0.5.0 (unreleased)
+## 0.5.0 - 2013-04-05
 
 Large rewrite of both templates, and generator code.
 
