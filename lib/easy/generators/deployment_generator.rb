@@ -23,6 +23,7 @@ TODO:
 
     def create_deployment_files
       template("deploy.rb.tt", "config/deploy.rb") # Generate deploy.rb first to use ours not capistrano's deploy.rb
+      copy_file("Capfile") # Do this first
       capify!
 
       # Generate all stages specified
