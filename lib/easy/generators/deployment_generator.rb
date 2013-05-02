@@ -24,13 +24,12 @@ module Easy
         generate("easy:stage", stage)
       end
 
-      install_message = %{
+      install_message = %Q(
 Easy Deployment Config now setup!
 
 TODO:
   * Set the correct git repository in config/deploy.rb
-  #{"* Edit Capfile and enable asset pipeline compilation if you are using it (uncomment load 'deploy/assets')" if options[:no_asset_pipeline]}
-}
+  #{"* Edit Capfile and enable asset pipeline compilation if you are using it (uncomment load 'deploy/assets')\n" if options[:no_asset_pipeline]})
 
       say(install_message, :green)
       options[:stages].each do |stage|
