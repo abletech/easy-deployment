@@ -43,7 +43,7 @@ Capistrano::Configuration.instance(:must_exist).load do
                   when :latest  then latest_release
                   else raise ArgumentError, "unknown migration target #{migrate_target.inspect}"
                   end
-      run "cd #{directory}; RAILS_ENV=#{stage} bundle exec rake db:create"
+      run "cd #{directory}; RAILS_ENV=#{rails_env || stage} bundle exec rake db:create"
     end
 
     # By default, we deploy using passenger as an app server
