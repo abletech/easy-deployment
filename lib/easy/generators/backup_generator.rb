@@ -11,13 +11,15 @@ module Easy
     def create_backup_files
       gem_group(:backup) do
         gem "whenever", :require => false
-        case Rails::VERSION::MAJOR
-        when 3
+        # Rails 3.2.12 and lower of the Rails 3.2 release series requires mail ~> 2.4.X which neccesitates an older version of backup
+        # We'll handle two cases: one for Rails 3.2.(0-12) and one for Rails 3.2.13 + Rails 4
+        if "3.2" == "#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}" && Rails::VERSION::STRING < "3.2.13"
           gem "backup", "~> 3.0.27", :require => false
           gem "fog",    "~> 1.4.0",  :require => false
           gem "mail",   "~> 2.4.0",  :require => false
-        when 4
-          gem "backup", "~> 3.1.3",   :require => false
+        elsif Rails::VERSION::STRING >= "3.2.13" && [3,4].include?(Rails::VERSION::MAJOR)
+          # Rails 3.2.13+ and Rails 4 only
+          gem "backup",  "~> 3.1.3",  :require => false
           gem "fog",     "~> 1.9.0",  :require => false
           gem "net-ssh", "<= 2.5.2",  :require => false # Greater than >= 2.3.0 as well, though we can't express that
           gem "net-scp", "<= 1.0.4",  :require => false # Greater than 1.0.0
