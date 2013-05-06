@@ -6,23 +6,17 @@ module Easy
 
     include GeneratorHelpers
 
-    INSTALL_MSG = %{
-Easy Deployment Config now setup!
-
-TODO:
-  * Set the correct git repository in config/deploy.rb
-  * Edit Capfile and enable asset pipeline compilation if you are using it (uncomment load 'deploy/assets')
-}
-
     desc %{Generates standard able technology deployment script using capistrano}
 
-    class_option :stages,           :type => :array,   :default => ['staging', 'production'], :aliases => :s
-    class_option :disable_backup,   :type => :boolean, :default => false
-    class_option :disable_bugsnag,  :type => :boolean, :default => false
-    class_option :disable_newrelic, :type => :boolean, :default => false
+    class_option :stages,            :type => :array,   :default => ['staging', 'production'], :aliases => :s
+    class_option :disable_backup,    :type => :boolean, :default => false
+    class_option :disable_bugsnag,   :type => :boolean, :default => false
+    class_option :disable_newrelic,  :type => :boolean, :default => false
+    class_option :no_asset_pipeline, :type => :boolean, :default => false
 
     def create_deployment_files
       template("deploy.rb.tt", "config/deploy.rb") # Generate deploy.rb first to use ours not capistrano's deploy.rb
+      copy_file("Capfile") unless options[:no_asset_pipeline] # Do this first
       capify!
 
       # Generate all stages specified
@@ -30,7 +24,14 @@ TODO:
         generate("easy:stage", stage)
       end
 
-      say(INSTALL_MSG, :green)
+      install_message = %Q(
+Easy Deployment Config now setup!
+
+TODO:
+  * Set the correct git repository in config/deploy.rb
+  #{"* Edit Capfile and enable asset pipeline compilation if you are using it (uncomment load 'deploy/assets')\n" if options[:no_asset_pipeline]})
+
+      say(install_message, :green)
       options[:stages].each do |stage|
         say("  * Set the ip address for staging in config/deploy/#{stage}.rb && the apache config in config/deploy/#{stage}/apache.conf", :green)
       end
