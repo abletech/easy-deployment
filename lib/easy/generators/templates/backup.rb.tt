@@ -13,7 +13,8 @@ Backup::Model.new("<%= application_name %>", "Remote Backup") do
       database_config_filename = "mongo.yml"
     end
   %>
-  database_config = YAML.load_file(File.join(rails_root, "config/<%= database_config_filename %>"))
+  app_database_config = YAML.load_file(File.join(rails_root, "config/<%= database_config_filename %>"))
+  database_config = app_database_config[ENV['RAILS_ENV']]
 
   database <%= database_engine %> do |db|
     db.name               = database_config["database"]
