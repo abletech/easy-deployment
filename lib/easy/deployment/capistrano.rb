@@ -63,7 +63,20 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
   end
 
-  desc "Tag the release by creating or moving a remote branch named after the current environment"
+  namespace :tail do
+    desc "Stream live log output. USAGE tail:live_logs"
+    task :live_logs, :roles => :app do
+      stream_output_from_command("tail -f #{shared_path}/log/#{rails_env}.log", true)
+    end
+
+    desc "Show recent log output. USAGE tail:recent_logs [lines=n] (defaults to 100)"
+    task :recent_logs, :roles => :app do
+      lines = ENV['lines'] || 100
+      stream_output_from_command("tail -n#{lines} #{shared_path}/log/#{rails_env}.log")
+    end
+  end
+
+  desc "[internal] Tag the release by creating or moving a remote branch named after the current environment"
   task :tag_release do
     if system("git branch -r | grep 'origin/releases/#{stage}'")
       system "git push origin :releases/#{stage}"
@@ -71,7 +84,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     system "git push origin #{branch}:releases/#{stage}"
   end
 
-  desc "Annotate release into version.txt"
+  desc "[internal] Annotate release into version.txt"
   task :annotate_release do
     git_revision = `git rev-parse #{branch} 2> /dev/null`.strip
     version_info = "Branch/Tag: #{branch}\\nRevision: #{git_revision}\\nDeployed To: #{stage}\\n\\nDeployed At: #{Time.now}\\nBy: #{`whoami`.chomp}\\n"
@@ -80,5 +93,19 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   after "deploy:update", "tag_release"
   after "deploy:update", "annotate_release"
+
+
+  # Helper function to stream output colorized by host
+  def stream_output_from_command(cmd, continuous = false)
+    trap("INT") { puts 'Output cancelled'; exit 0; }
+    Capistrano::CLI.ui.say("<%= color('Streaming output Ctrl+c to cancel', :blue) %>") if continuous
+
+    run(cmd) do |channel, stream, data|
+      puts  # for an extra line break before the host name
+      Capistrano::CLI.ui.say("<%= color('#{channel[:host]}', :cyan) %>: #{data}")
+      # puts "#{channel[:host]}: #{data}"
+      break if stream == :err
+    end
+  end
 
 end
