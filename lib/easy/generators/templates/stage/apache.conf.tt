@@ -1,10 +1,16 @@
 <VirtualHost *:80>
-   ServerName <%= name %>.<%= application_name %>.co.nz
+  ServerName <%= name %>.<%= application_name %>.co.nz
 
-   DocumentRoot /var/apps/<%= application_name %>/current/public
-   RailsEnv <%= name %>
-   <Directory /var/apps/<%= application_name %>/current/public>
-      AllowOverride all
-      Options -MultiViews
-   </Directory>
+  DocumentRoot /var/apps/<%= application_name %>/current/public
+  RackEnv <%= name %>
+
+  # Passenger tuning
+  PassengerMinInstances 1 # Prevent passenger going to sleep after 15min inactivity
+  # PassengerPreStart http://<%= name %>.<%= application_name %>.co.nz # Pre-load app on deploy. This needs to match the ServerName above
+  # PassengerHighPerformance on # If you don't need any apache mods within this VirtualHost, you may turn this on
+
+  <Directory /var/apps/<%= application_name %>/current/public>
+     AllowOverride all
+     Options -MultiViews
+  </Directory>
 </VirtualHost>
