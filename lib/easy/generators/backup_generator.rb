@@ -19,12 +19,12 @@ module Easy
           gem "mail",   "~> 2.4.0",  :require => false
         elsif Rails::VERSION::STRING >= "3.2.13" && [3,4].include?(Rails::VERSION::MAJOR)
           # Rails 3.2.13+ and Rails 4 only
-          gem "backup",  "~> 3.1.3",  :require => false
-          gem "fog",     "~> 1.9.0",  :require => false
-          gem "net-ssh", "<= 2.5.2",  :require => false # Greater than >= 2.3.0 as well, though we can't express that
-          gem "net-scp", "<= 1.0.4",  :require => false # Greater than 1.0.0
-          gem "excon",   "~> 0.17.0", :require => false
-          gem "mail",    "~> 2.5.0",  :require => false
+          gem "backup",  "~> 3.1.3",               :require => false
+          gem "fog",     "~> 1.9.0",               :require => false
+          gem "net-ssh", ['>= 2.3.0', '<= 2.5.2'], :require => false
+          gem "net-scp", ['>= 1.0.0', '<= 1.0.4'], :require => false
+          gem "excon",   "~> 0.17.0",              :require => false
+          gem "mail",    "~> 2.5.0",               :require => false
         else
           warn "Unsupported rails release detected. You'll need to manage your own dependencies for the backup gem"
           gem "backup", :require => false
