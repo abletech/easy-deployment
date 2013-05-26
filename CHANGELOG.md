@@ -1,5 +1,20 @@
 # Changelog for easy-deployment
 
+## 0.5.1 (2013-05-27)
+
+Bugfixes:
+
+* Backup gem requirements for rails 3.2.13 fixed: should be the same as the rails 4 ones, not earlier rails 3 releases
+* Fixed `cap deploy:initial` for cases where the deploy stage name didn't match the rails_env name
+* Fixed backup template not pulling the environment specific hash out of database config
+
+New Features:
+
+* Tail the rails log of your remote servers (either streaming live or the last N lines) `cap tail:live_logs` + `cap tail:recent logs`
+* Load the capistrano rails assetpipeline support by default (can be skipped via generator option)
+* Apache/passenger config template now sets `PassengerMinInstances` and provides some disabled example tuning options
+* Specified license in the gemspec
+
 ## 0.5.0 - 2013-04-05
 
 Large rewrite of both templates, and generator code.
