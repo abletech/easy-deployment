@@ -36,6 +36,14 @@ TODO:
         say("  * Set the ip address for staging in config/deploy/#{stage}.rb && the apache config in config/deploy/#{stage}/apache.conf", :green)
       end
 
+      add_optional_operational_gems
+
+      true
+    end
+
+    private
+
+    def add_optional_operational_gems
       needs_bundle = false
 
       unless options[:disable_newrelic]
@@ -55,8 +63,6 @@ TODO:
       end
 
       bundle_command(:install) if needs_bundle
-
-      true
     end
 
   end
