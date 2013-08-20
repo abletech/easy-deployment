@@ -5,9 +5,12 @@
   RackEnv <%= name %>
 
   # Passenger tuning
-  PassengerMinInstances 1 # Prevent passenger going to sleep after 15min inactivity
-  # PassengerPreStart http://<%= name %>.<%= application_name %>.co.nz # Pre-load app on deploy. This needs to match the ServerName above
-  # PassengerHighPerformance on # If you don't need any apache mods within this VirtualHost, you may turn this on
+  # at least 1 prevents passenger going to sleep after 15min inactivity, increase as desired
+  PassengerMinInstances 1
+  # Pre-load app on deploy. This needs to match the ServerName above
+  # PassengerPreStart http://<%= name %>.<%= application_name %>.co.nz
+  # If you don't need any apache mods within this VirtualHost, you may turn this on
+  # PassengerHighPerformance on
 
   <Directory /var/apps/<%= application_name %>/current/public>
      AllowOverride all
