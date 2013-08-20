@@ -15,7 +15,7 @@ New Features:
 * Apache/passenger config template now sets `PassengerMinInstances` and provides some disabled example tuning options
 * Specified license in the gemspec
 
-## 0.5.0 - 2013-04-05
+## 0.5.0 (2013-04-05)
 
 Large rewrite of both templates, and generator code.
 
@@ -35,32 +35,32 @@ Bug Fixes:
 * `deploy.rb` and `staging.rb` etc files are rendered correctly as templates, instead of copied over without rendering
 * use `deploy:create_symlink` instead of deprecated `deploy:symlink`
 
-## 0.4.4 - 2013-01-11
+## 0.4.4 (2013-01-11)
 
 Bug Fixes:
 
 * Bugfix for previous niet role definition, variable should be delayed being evaluated
 
-## 0.4.3 - 2013-01-10
+## 0.4.3 (2013-01-10)
 
 Enhancements:
 
 * the server role for the niet tasks are now configurable via `set :niet_roles, [:job]`
 
-## 0.4.2 - 2013-01-09
+## 0.4.2 (2013-01-09)
 
 Enhancements:
 
 * path to the binary apachectl command is now able to be configured via `set :apachectl_bin`
 * Added documentation to README.md for several of the optional features
 
-## 0.4.1 - 2012-12-10
+## 0.4.1 (2012-12-10)
 
 Bug Fixes:
 
 * raise exception if `cap niet:start` is run without `cap niet:setup` being run first
 
-## 0.4.0 - 2012-11-19
+## 0.4.0 (2012-11-19)
 
 Enhancements:
 
@@ -68,19 +68,19 @@ Enhancements:
 * apache:configure task now copies a folder stage/apache/* if present falling back to previous state/apache.conf
 * added `easy/deployment/performance` optional require to track the times of deployments
 
-## 0.3.3 - 2012-10-16
+## 0.3.3 (2012-10-16)
 
 Bug Fixes
 
 * `deploy:reference` should use the rails_env, not the stage
 
-## 0.3.0 - 2012-09-04
+## 0.3.0 (2012-09-04)
 
 Enhancements:
 
 * Add `apache:configure_and_reload` capistrano task, which will configure the site, test the configuration & gracefully reload the Apache configuration
 
-## 0.2.2 - 2012-08-27
+## 0.2.2 (2012-08-27)
 
 Enhancements:
 
