@@ -54,6 +54,8 @@ This assumes your deploy user has access to run the apachectl command with sudo 
     deploy ALL=(ALL) NOPASSWD:/usr/sbin/apachectl graceful
     deploy ALL=(ALL) NOPASSWD:/usr/sbin/apachectl configtest
 
+Read more about passenger configuration on our wiki at https://github.com/AbleTech/easy-deployment/wiki/Common-passenger-config
+
 ### Logrotate
 
 Automatically configure logrotate for your application logfile:
