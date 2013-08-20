@@ -1,3 +1,6 @@
+# Read more about different configurations for Apache/passenger at https://github.com/AbleTech/easy-deployment/wiki/Common-passenger-config
+# TODO: customize this config file prior to deploying
+
 <VirtualHost *:80>
   ServerName <%= name %>.<%= application_name %>.co.nz
 
@@ -9,7 +12,7 @@
   PassengerMinInstances 1
   # Pre-load app on deploy. This needs to match the ServerName above
   # PassengerPreStart http://<%= name %>.<%= application_name %>.co.nz
-  # If you don't need any apache mods within this VirtualHost, you may turn this on
+  # If you don't need any apache mods within this VirtualHost, you may turn high performance mode on
   # PassengerHighPerformance on
 
   <Directory /var/apps/<%= application_name %>/current/public>
