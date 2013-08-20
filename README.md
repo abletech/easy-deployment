@@ -48,7 +48,7 @@ If necessary, you can set the path to the apache2ctl binary via:
 
     set :apachectl_bin, "/usr/sbin/apachectl"
 
-This assumes your deploy user has access to run the apachectl command with sudo privileges. As a recommended security practice, your deploy user should not have general sudo access, instead configure limited sudo access for specific commands only, declaring the full binary path
+This assumes your deploy user has access to run the apachectl command with sudo privileges. As a recommended security practice, your deploy user should not have general sudo access, instead configure limited sudo access for specific commands only, declaring the full binary path. Having passwordless sudo *only* for these limited commands can make this smoother, but is not a requirement - capistrano will prompt for sudo password if that is required.
 
     # Example sudoers file entries to grant deploy user passwordless sudo privileges to only these commands
     deploy ALL=(ALL) NOPASSWD:/usr/sbin/apachectl graceful
