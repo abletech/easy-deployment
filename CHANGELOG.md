@@ -1,5 +1,16 @@
 # Changelog for easy-deployment
 
+## 0.5.2 (2013-08-20)
+
+Bugfixes:
+
+* Fix misplaced comments in the default `apache.conf` template that this library generates
+
+New Features:
+
+* Added support for rails asset caching in apache.conf template (provided expires module is enabled)
+* Added links to further documentation on passenger VirtualHost patterns to the github wiki
+
 ## 0.5.1 (2013-05-27)
 
 Bugfixes:
