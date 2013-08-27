@@ -30,8 +30,6 @@ set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 # easy-deployment sets the branch to deploy to the current local branch by default.
 
-set :bundle_without, defer { fetch(:stages) - [fetch(:stage)] } # Bundle without other stage environments
-
 set :user, "deploy"
 set :runner, "deploy"
 
@@ -47,10 +45,3 @@ set :runner, "deploy"
 
 # Optional feature: capistrano performance report. Timings for slow deploys
 # require "easy/deployment/performance"
-
-
-# If deploying with RVM:
-# Add gem 'rvm' to the development group in Gemfile, and uncomment following lines
-# require "rvm/capistrano"
-# set :rvm_type, :system
-# set :rvm_ruby_string, '1.9.2-p290'
