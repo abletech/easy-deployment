@@ -33,7 +33,7 @@ set :git_shallow_clone, 1
 set :user, "deploy"
 set :runner, "deploy"
 
-# Optional feature: apache restarts
+# Optional feature: apache restarts - read more at https://github.com/AbleTech/easy-deployment/wiki/Apache
 # require "easy/deployment/apache"
 # set :apachectl_bin, "/usr/sbin/apachectl"
 
