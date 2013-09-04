@@ -7,6 +7,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   set :apachectl_bin, "apache2ctl"
+  set :apache_dir, "/etc/apache2"
 
   namespace :apache do
     desc "Configure this site, test the configuration & gracefully reload the Apache configuration"
@@ -23,12 +24,12 @@ Capistrano::Configuration.instance(:must_exist).load do
         files = capture("for f in #{apache_dir_path}/*; do echo $f; done").split("\r\n")
         files.each do |file|
           file_name = file.split(/\/([^\/]+)$/)[1]
-          run "cp -f #{file} /etc/apache2/sites-available/#{file_name}"
-          run "ln -fs /etc/apache2/sites-available/#{file_name} /etc/apache2/sites-enabled/#{file_name}"
+          run "cp -f #{file} #{apache_dir}/sites-available/#{file_name}"
+          run "ln -fs #{apache_dir}/sites-available/#{file_name} #{apache_dir}/sites-enabled/#{file_name}"
         end
       else # single apache file (to be deprecated)
-        run "cp -f #{current_path}/config/deploy/#{stage}/apache.conf /etc/apache2/sites-available/#{application}"
-        run "ln -fs /etc/apache2/sites-available/#{application} /etc/apache2/sites-enabled/#{application}"
+        run "cp -f #{current_path}/config/deploy/#{stage}/apache.conf #{apache_dir}/sites-available/#{application}"
+        run "ln -fs #{apache_dir}/sites-available/#{application} #{apache_dir}/sites-enabled/#{application}"
       end
 
       configure_mods
@@ -39,8 +40,8 @@ Capistrano::Configuration.instance(:must_exist).load do
       passenger_conf = "#{current_path}/config/deploy/#{stage}/passenger.conf"
 
       if remote_file_exists?(passenger_conf)
-        run "cp -f #{passenger_conf} /etc/apache2/mods-available/passenger.conf"
-        run "ln -fs /etc/apache2/mods-available/passenger.conf /etc/apache2/mods-enabled/passenger.conf"
+        run "cp -f #{passenger_conf} #{apache_dir}/mods-available/passenger.conf"
+        run "ln -fs #{apache_dir}/mods-available/passenger.conf #{apache_dir}/mods-enabled/passenger.conf"
       else
         puts "Passenger.conf not found, not configuring any apache mods"
       end
