@@ -7,5 +7,5 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
   end
 
-  before 'deploy:start', 'logrotate:setup'
+  after 'deploy:update', 'logrotate:setup'
 end
