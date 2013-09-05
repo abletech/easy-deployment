@@ -12,7 +12,7 @@ end
 <% unless options[:disable_bugsnag] %>require "bugsnag/capistrano"<% end %>
 <% unless options[:disable_newrelic] %>require "new_relic/recipes"
 after "deploy:update", "newrelic:notice_deployment"
-<% end %><% unless options[:disable_backup] %># Backup
+<% end %><% unless options[:disable_backup] %># Backup to S3 (read more https://github.com/AbleTech/easy-deployment/wiki/Backup)
 require "easy/deployment/backup"
 require "whenever/capistrano"
 set :whenever_command, "#{fetch(:bundle_cmd, "bundle")} exec whenever"
@@ -35,12 +35,13 @@ set :runner, "deploy"
 
 # Optional feature: apache restarts - read more at https://github.com/AbleTech/easy-deployment/wiki/Apache
 # require "easy/deployment/apache"
-# set :apachectl_bin, "/usr/sbin/apachectl"
+# set :apachectl_bin, "/usr/sbin/apachectl" # recommended: set the full path which requires sudo privileges
+# set :apache_dir, "/etc/apache2"           # optional to set. default value "/etc/apache2" - set this if your platform has a different path
 
-# Optional feature: configure log rotation
+# Optional feature: configure log rotation - read more at https://github.com/AbleTech/easy-deployment/wiki/Logrotate
 # require "easy/deployment/logrotate"
 
-# Optional feature: db reference data. Requires easy-reference gem
+# Optional feature: db reference data. Requires [easy_reference_data gem](https://github.com/AbleTech/easy_reference_data)
 # require "easy/deployment/dbreference"
 
 # Optional feature: capistrano performance report. Timings for slow deploys
