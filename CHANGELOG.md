@@ -1,5 +1,18 @@
 # Changelog for easy-deployment
 
+## 0.5.3 (2013-09-05)
+
+Bugfixes:
+
+* `bundle_without` was previously set incorrectly in the deploy.rb template, this has been removed from the template. Recommended to remove from your deploy.rb, but low impact.
+
+Featues:
+
+* Added support for multiple platform apache/passenger in the apache tasks. (apache path can now be set)
+* Logrotate configuration is now run on each deploy. Previously was only hooked on deploy:start which may not always be run for passenger setups.
+* Removed deploy.rb template comments re 'rvm-capistrano' deploying, as we don't primarily deploy off rvm.
+* Links to further documentation on the github wiki added to the deploy.rb file
+
 ## 0.5.2 (2013-08-20)
 
 Bugfixes:
