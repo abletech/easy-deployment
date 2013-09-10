@@ -74,7 +74,7 @@ Capistrano::Configuration.instance(:must_exist).load do
           "ssh-add"
         end
         Capistrano::CLI.ui.say("<%= color('Error, no ssh-keys registered to be forwarded', :red) %>")
-        Capistrano::CLI.ui.say("<%= color('Run the following command to register your ssh-key then try again:', :red) #{cmd_to_run} %>")
+        Capistrano::CLI.ui.say("<%= color('Run the following command to register your ssh-key then try again:', :red) %> #{cmd_to_run}")
         exit(1)
       else
         Capistrano::CLI.ui.say("<%= color('ssh-keys are good to go captain!', :cyan) %>") if ENV['DEBUG']
