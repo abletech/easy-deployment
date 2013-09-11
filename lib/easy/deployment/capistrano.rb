@@ -65,6 +65,9 @@ Capistrano::Configuration.instance(:must_exist).load do
     desc "[internal] Check ssh-key is added. ssh key forwarding deployments will fail without it"
     # To disable this check set the variable `set :ignore_ssh_keys, true`
     task :preflight_environment_check do
+      if fetch(:disable_agent_check, false) || !ssh_options[:forward_agent]
+        return true # Don't run the check if not using ssh agent forwarding
+      end
       keys, status = run_local("ssh-add -L")
       if fetch(:ignore_ssh_keys, false) || status != 0 || !(any_keys_registered = keys.chomp.split("\n").select {|line| line =~ /^ssh\-/ }.size > 0)
         cmd_to_run = case RUBY_PLATFORM
@@ -75,6 +78,7 @@ Capistrano::Configuration.instance(:must_exist).load do
         end
         Capistrano::CLI.ui.say("<%= color('Error, no ssh-keys registered to be forwarded', :red) %>")
         Capistrano::CLI.ui.say("<%= color('Run the following command to register your ssh-key then try again:', :red) %> #{cmd_to_run}")
+        Capistrano::CLI.ui.say("If you do not use ssh-agent-forwarding, put `set :disable_agent_check, true` in deploy.rb to disable this check")
         exit(1)
       else
         Capistrano::CLI.ui.say("<%= color('ssh-keys are good to go captain!', :cyan) %>") if ENV['DEBUG']
