@@ -11,7 +11,7 @@ Capistrano::Configuration.instance(:must_exist).load do
                   else raise ArgumentError, "unknown migration target #{migrate_target.inspect}"
                   end
       
-      run "cd #{directory} && RAILS_ENV=#{rails_env} bundle exec rake reference:load"
+      run "cd #{directory} && RAILS_ENV=#{rails_env} #{fetch(:bundle_cmd, 'bundle')} exec rake reference:load"
     end
   end
 
