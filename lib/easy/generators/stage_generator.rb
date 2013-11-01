@@ -10,6 +10,7 @@ module Easy
       directory("stage", "config/deploy/#{name}")
       template("stage.rb.tt", "config/deploy/#{name}.rb")
       template("stage/apache.conf.tt", "config/deploy/#{name}/apache.conf")
+      template("stage/nginx.conf.tt", "config/deploy/#{name}/nginx.conf")
 
       # Ensure we have a config/environments/<env-name>.rb
       dest = "config/environments/#{name}.rb"
