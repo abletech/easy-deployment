@@ -31,7 +31,7 @@ Replace any missing configuration lines, and don't forget to remove the TODO tex
 
 ## Integration
 
-### Apache
+### Apache (via Passenger)
 
 Automatically setup an Apache V-Host, and reload apache2:
 
@@ -43,7 +43,7 @@ Add to deploy.rb
 
     require "easy/deployment/apache"
 
-Customise the vhost file within `config/deploy/<stage>/apache/<app>.conf`
+Customise the vhost file within `config/deploy/<stage>/apache.conf`
 If necessary, you can set the path to the apache2ctl binary via:
 
     set :apachectl_bin, "/usr/sbin/apachectl"
@@ -55,6 +55,26 @@ This assumes your deploy user has access to run the apachectl command with sudo 
     deploy ALL=(ALL) NOPASSWD:/usr/sbin/apachectl configtest
 
 Read more about passenger configuration on our wiki at https://github.com/AbleTech/easy-deployment/wiki/Common-passenger-config
+
+### Nginx (for use with standalone ruby app server)
+
+Add to deploy.rb
+
+    require "easy/deployment/nginx"
+
+Customise the site configuration within `config/deploy/<stage>/nginx.conf`
+Alter the paths used if required:
+
+    set :nginx_bin, "/etc/init.d/nginx" # This is the default, change if necessary
+    set :nginx_dir, "/etc/nginx"        # This is the default, change if necessary
+
+Like the apache integration, this requires sudo privileges to reload nginx:
+
+This example shows setting a passwordless sudo for a single user `deploy` for a limited set of commands controlling nginx
+
+    # Example sudoers file entries to grant deploy user passwordless sudo privileges to only these commands
+    deploy ALL=(ALL) NOPASSWD:/etc/init.d/nginx reload
+    deploy ALL=(ALL) NOPASSWD:/etc/init.d/nginx configtest
 
 ### Logrotate
 
