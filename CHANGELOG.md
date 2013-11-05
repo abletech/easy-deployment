@@ -7,6 +7,10 @@ Features:
 * Clearer error message, by checking and raises an exception if you haven't added an ssh-key as an identity (`ssh-add -L`) since this is a pre-requisite for ssh-agent forwarding.
 * Support for using nginx - intended to be along with a stand-alone ruby application server.
 
+Bugfixes:
+
+* Using builting `easy-reference` gem support now works with a custom bundler path if set.
+
 ## 0.5.3 (2013-09-05)
 
 Bugfixes:
