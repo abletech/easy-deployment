@@ -108,7 +108,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   desc "[internal] Annotate release into version.txt"
-  task :annotate_release do
+  task :annotate_release, :except => { :no_release => true } do
     git_revision = `git rev-parse #{branch} 2> /dev/null`.strip
     version_info = "Branch/Tag: #{branch}\\nRevision: #{git_revision}\\nDeployed To: #{stage}\\n\\nDeployed At: #{Time.now}\\nBy: #{`whoami`.chomp}\\n"
     run %Q(printf "#{version_info}" > #{release_path}/version.txt)
