@@ -10,8 +10,8 @@ Capistrano::Configuration.instance(:must_exist).load do
                   when :latest  then latest_release
                   else raise ArgumentError, "unknown migration target #{migrate_target.inspect}"
                   end
-      
-      run "cd #{directory} && RAILS_ENV=#{rails_env} #{fetch(:bundle_cmd, 'bundle')} exec rake reference:load"
+
+      run "cd #{directory} && RAILS_ENV=#{rails_env} bundle exec rake easy:reference_data:refresh"
     end
   end
 
