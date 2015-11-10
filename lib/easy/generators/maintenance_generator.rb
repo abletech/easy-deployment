@@ -7,9 +7,7 @@ module Easy
     desc %{Generates a maintenance config to allow you to put your application into maintenance mode}
 
     def create_maintenance_files
-      gem_group(:development) do
-        gem 'turnout', '~> 2.2'
-      end
+      gem 'turnout', '~> 2.2'
 
       template("maintenance.rb.tt",   "config/initializers/maintenance.rb")
       template("maintenance.html.tt", "public/maintenance.html")
