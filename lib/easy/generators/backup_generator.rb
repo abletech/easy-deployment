@@ -1,4 +1,5 @@
 require 'rails/generators'
+require "easy/generators/generator_helpers"
 
 module Easy
   class BackupGenerator < Rails::Generators::Base

@@ -1,5 +1,17 @@
 # Changelog for easy-deployment
 
+## 0.6.2 (2015-11-10)
+
+Enhancements:
+
+* Add support for maintenance mode using the `turnout` gem.
+
+## 0.6.1 (2014-05-23)
+
+Minor changes:
+
+* Update reference data load to use the new rake task from `easy-reference` gem
+
 ## 0.6.0 (2013-11-05)
 
 Features:
@@ -9,7 +21,7 @@ Features:
 
 Bugfixes:
 
-* Using builting `easy-reference` gem support now works with a custom bundler path if set.
+* Using built-in `easy-reference` gem support now works with a custom bundler path if set.
 
 ## 0.5.3 (2013-09-05)
 

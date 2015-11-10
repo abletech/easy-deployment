@@ -99,12 +99,20 @@ The created backup configuration will be scheduled on deploy to run nightly via 
 The default setup is to backup the capistrano system folder, the configured database, to store the backup in S3, and notify of failures via email.
 All these settings are configurable, to read more see the documentation for the backup gem https://github.com/meskyanichi/backup and setup your configuration to suit yourself.
 
-### Whenever
+### Maintenance
 
-If you use the whenever gem to manage application crontabs, automatically include the capistrano
-hooks to run whenever each deploy via:
+This includes a generator to create a maintenance mode configuration (generator is run by itself as `rails generate easy:maintenace`)
 
-    require "easy/deployment/whenever"
+This will generate:
+
+    config/initializers/maintenace.rb
+    public/maintenance.html
+    public/maintenance.json
+
+Customise the site configuration within `config/initializers/maintenace.rb` to change the maintenance message, response status etc.
+Customise the maintenance page within `public/maintenance.html`
+All these settings are configurable, to read more see the documentation for the turnout gem https://github.com/biola/turnout and setup your configuration to suit yourself.
+
 
 ## Contributing
 

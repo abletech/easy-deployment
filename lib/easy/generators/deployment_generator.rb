@@ -1,4 +1,5 @@
 require 'rails/generators'
+require "easy/generators/generator_helpers"
 
 module Easy
   class DeploymentGenerator < Rails::Generators::Base
