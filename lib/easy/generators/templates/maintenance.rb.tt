@@ -9,7 +9,7 @@ rails_root = File.expand_path(File.join(File.dirname(__FILE__), '../..'))
 
 Turnout.configure do |config|
   config.app_root = rails_root
-  config.named_maintenance_file_paths = {default: config.app_root.join('tmp', 'maintenance.yml').to_s, app: config.app_root.join('public', 'maintenance.html') }
+  config.named_maintenance_file_paths = { default: config.app_root.join('tmp', 'maintenance.yml').to_s }
   config.default_maintenance_page = Turnout::MaintenancePage::HTML
   config.default_reason = "This site is temporarily down for maintenance."
   config.default_allowed_paths = ['/admin','/assets']
