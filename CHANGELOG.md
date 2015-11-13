@@ -1,5 +1,11 @@
 # Changelog for easy-deployment
 
+## 0.6.3 (2015-11-13)
+
+Bugfixes:
+
+* Fix maintenance page location and typos in `README.md`
+
 ## 0.6.2 (2015-11-10)
 
 Enhancements:

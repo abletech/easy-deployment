@@ -101,15 +101,15 @@ All these settings are configurable, to read more see the documentation for the 
 
 ### Maintenance
 
-This includes a generator to create a maintenance mode configuration (generator is run by itself as `rails generate easy:maintenace`)
+This includes a generator to create a maintenance mode configuration (generator is run by itself as `rails generate easy:maintenance`)
 
 This will generate:
 
-    config/initializers/maintenace.rb
+    config/initializers/maintenance.rb
     public/maintenance.html
     public/maintenance.json
 
-Customise the site configuration within `config/initializers/maintenace.rb` to change the maintenance message, response status etc.
+Customise the site configuration within `config/initializers/maintenance.rb` to change the maintenance message, response status etc.
 Customise the maintenance page within `public/maintenance.html`
 All these settings are configurable, to read more see the documentation for the turnout gem https://github.com/biola/turnout and setup your configuration to suit yourself.
 
