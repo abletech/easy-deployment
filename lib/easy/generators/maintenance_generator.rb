@@ -16,7 +16,7 @@ module Easy
       run("bundle install")
 
       say("Maintenance configuration generated", :green)
-      say("  - TODO: edit config/maintenance.rb setting default_maintenance_page, default_reason and other configuration options", :green)
+      say("  - TODO: edit config/initializers/maintenance.rb setting default_maintenance_page, default_reason and other configuration options", :green)
       say("  - TODO: edit public/maintenance.html to match site styles", :green)
 
       true
