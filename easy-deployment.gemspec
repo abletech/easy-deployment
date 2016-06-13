@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.license       = "GPLv3"
 
   gem.add_runtime_dependency 'rails', '>= 3.0.0'
-  gem.add_runtime_dependency 'capistrano', '>= 2.15'
+  gem.add_runtime_dependency 'capistrano', '>= 2.15', '< 3'
 
   gem.add_development_dependency 'bundler'
   gem.add_development_dependency 'rspec', '~> 2.0'
