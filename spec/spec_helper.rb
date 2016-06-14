@@ -10,6 +10,11 @@ require 'bundler'
 
 require 'easy-deployment'
 
+require 'capistrano-spec'
+
 RSpec.configure do |config|
   config.mock_with :rspec
+
+  config.include Capistrano::Spec::Matchers
+  config.include Capistrano::Spec::Helpers
 end
